@@ -9,6 +9,7 @@ enum Token {
 
     token_identifier = -4,
     token_number = -5,
+    token_error = -6,
 
 };
 
@@ -32,11 +33,21 @@ static int getTokken() {
     }
 
     if(std::isdigit(lastChar) || lastChar == '.'){
+        bool dot = (lastChar == '.');
         std::string numStr;
-        do {
+        numStr += lastChar;
+        lastChar = getchar();
+        while (std::isdigit(lastChar) || (lastChar == '.')){
+            if(lastChar == '.'){
+                if(dot){
+                    IdentifierStr = "too much dottttsss";
+                    return token_error;
+                }
+                dot = true;
+            }
             numStr += lastChar;
             lastChar = getchar();
-        } while (std::isdigit(lastChar) || lastChar == '.');
+        }
         numval = strtod(numStr.c_str(),0);
         return token_number;
     }
@@ -61,5 +72,7 @@ int main() {
     std::cout << "Hello, World!" << std::endl;
     int s = getTokken();
     std::cout << s << std::endl;
+    std::cout << numval << std::endl;
+    std::cout << IdentifierStr << std::endl;
     return 0;
 }
