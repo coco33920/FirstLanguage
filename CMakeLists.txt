@@ -3,4 +3,4 @@ project(FirstLanguage)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(FirstLanguage main.cpp)
+add_executable(FirstLanguage main.cpp lexer.cpp lexer.h)
